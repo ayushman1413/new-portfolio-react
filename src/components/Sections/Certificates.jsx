@@ -8,7 +8,7 @@ function Certificates() {
       title: 'Certificate in Data Entry Operator',
       issuer: 'NIELIT',
       year: '2023',
-      image: '/formal-certificate.png',
+      image: '/dataentry.png',
     },
     {
       id: 2,
