@@ -18,7 +18,7 @@ function Sidebar({ isDarkMode, toggleTheme, activeSection, onNavClick }) {
     <aside className="sidebar">
       <div className="profile-section">
         <div className="profile-img">
-          <img src="/professional-profile.png" alt="Ayushman Vishwakarma" />
+          <img src="/public/Profilepicture.png" alt="Ayushman Vishwakarma" />
         </div>
         <h2 className="profile-name">Ayushman Vishwakarma</h2>
         <p className="profile-title">Full Stack Developer</p>
