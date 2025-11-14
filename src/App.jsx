@@ -2,23 +2,28 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar/Sidebar';
 import MainContent from './components/MainContent/MainContent';
 import MobileMenu from './components/MobileMenu/MobileMenu';
+import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import './styles/App.css';
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [currentTheme, setCurrentTheme] = useState('dark');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-  }, [isDarkMode]);
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    localStorage.setItem('theme', currentTheme);
+  }, [currentTheme]);
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setCurrentTheme(savedTheme);
+    }
+  }, []);
+
+  const handleThemeChange = (theme) => {
+    setCurrentTheme(theme);
   };
 
   const handleNavClick = (sectionId) => {
@@ -28,22 +33,23 @@ function App() {
 
   return (
     <div className="app-container">
-      <Sidebar 
-        isDarkMode={isDarkMode} 
-        toggleTheme={toggleTheme}
+      <Sidebar
+        currentTheme={currentTheme}
+        onThemeChange={handleThemeChange}
         activeSection={activeSection}
         onNavClick={handleNavClick}
       />
-      <MainContent 
+      <MainContent
         activeSection={activeSection}
         onNavClick={handleNavClick}
       />
-      <MobileMenu 
+      <MobileMenu
         isOpen={mobileMenuOpen}
         onToggle={() => setMobileMenuOpen(!mobileMenuOpen)}
         activeSection={activeSection}
         onNavClick={handleNavClick}
       />
+
     </div>
   );
 }

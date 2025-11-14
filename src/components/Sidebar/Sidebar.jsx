@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../styles/Sidebar.css';
 
-function Sidebar({ isDarkMode, toggleTheme, activeSection, onNavClick }) {
+function Sidebar({ currentTheme, onThemeChange, activeSection, onNavClick }) {
+  const [isThemeDropdownOpen, setIsThemeDropdownOpen] = useState(false);
+
   const navItems = [
     { id: 'home', label: 'Home', icon: 'fas fa-home' },
     { id: 'about', label: 'About Me', icon: 'fas fa-user' },
@@ -12,6 +14,15 @@ function Sidebar({ isDarkMode, toggleTheme, activeSection, onNavClick }) {
     { id: 'testimonials', label: 'Testimonials', icon: 'fas fa-comments' },
     { id: 'certificates', label: 'Certificates', icon: 'fas fa-certificate' },
     { id: 'contact', label: 'Contact', icon: 'fas fa-envelope' },
+  ];
+
+  const themes = [
+    { id: 'dark', name: 'Dark', icon: '🌙' },
+    { id: 'blue', name: 'Blue', icon: '🔵' },
+    { id: 'purple', name: 'Purple', icon: '🟣' },
+    { id: 'orange', name: 'Orange', icon: '🟠' },
+    { id: 'neon', name: 'Neon', icon: '⚡' },
+    { id: 'minimal-white', name: 'Minimal', icon: '⚪' },
   ];
 
   return (
@@ -59,10 +70,33 @@ function Sidebar({ isDarkMode, toggleTheme, activeSection, onNavClick }) {
       </nav>
 
       <div className="theme-toggle-section">
-        <button className="theme-toggle-btn" onClick={toggleTheme}>
-          <i className={isDarkMode ? 'fas fa-sun' : 'fas fa-moon'}></i>
-          <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+        <button
+          className="theme-toggle-btn"
+          onClick={() => setIsThemeDropdownOpen(!isThemeDropdownOpen)}
+        >
+          <i className={currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'}></i>
+          <span>Theme</span>
+          <i className={`fas fa-chevron-${isThemeDropdownOpen ? 'up' : 'down'}`}></i>
         </button>
+
+        {isThemeDropdownOpen && (
+          <div className="theme-dropdown">
+            {themes.map((theme) => (
+              <button
+                key={theme.id}
+                className={`theme-option ${currentTheme === theme.id ? 'active' : ''}`}
+                onClick={() => {
+                  onThemeChange(theme.id);
+                  setIsThemeDropdownOpen(false);
+                }}
+              >
+                <span className="theme-icon">{theme.icon}</span>
+                <span>{theme.name}</span>
+                {currentTheme === theme.id && <i className="fas fa-check"></i>}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </aside>
   );

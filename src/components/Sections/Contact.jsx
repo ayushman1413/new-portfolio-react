@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import '../../styles/sections/Contact.css';
 
 function Contact() {
@@ -25,8 +26,17 @@ function Contact() {
     setLoading(true);
 
     try {
-      // You would integrate EmailJS here
-      console.log('Sending email:', formData);
+      await emailjs.send(
+        'service_ayush',
+        'template_yzgd8em',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        'CxJGUxwe0g66GRkCI'
+      );
       setStatus('Message sent successfully!');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
