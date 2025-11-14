@@ -10,7 +10,6 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    // Apply theme to document
     if (isDarkMode) {
       document.documentElement.setAttribute('data-theme', 'dark');
     } else {
