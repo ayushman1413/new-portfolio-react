@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar/Sidebar';
 import MainContent from './components/MainContent/MainContent';
 import MobileMenu from './components/MobileMenu/MobileMenu';
-import ThemeSelector from './components/ThemeSelector/ThemeSelector';
+
 import './styles/App.css';
 
 function App() {
